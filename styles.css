@@ -6,15 +6,13 @@
 /* ── CUSTOM FONTS ── */
 @font-face {
   font-family: 'Cubano';
-  src: url('../fonts/Cubano.otf') format('opentype');
-  font-weight: normal;
+  src: url('fonts/Cubano.otf') format('opentype');  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Deseo';
-  src: url('../fonts/Deseo.otf') format('opentype');
-  font-weight: normal;
+  src: url('fonts/Deseo.otf') format('opentype');  font-weight: normal;
   font-style: normal;
 }
 
