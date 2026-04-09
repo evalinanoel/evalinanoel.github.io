@@ -1,0 +1,645 @@
+/* ============================================================
+   EVIE NOEL — PORTFOLIO STYLES
+   Fonts: Cubano (display), Deseo (accent), Caveat (handwritten)
+   ============================================================ */
+
+/* ── CUSTOM FONTS ── */
+@font-face {
+  font-family: 'Cubano';
+  src: url('../fonts/Cubano.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Deseo';
+  src: url('../fonts/Deseo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ── VARIABLES ── */
+:root {
+  --espresso:      #40373D;
+  --cobalt:        #2B3F8C;
+  --cobalt-light:  #4A5BA8;
+  --cream:         #F4F1EC;
+  --cream-dark:    #EAE5DB;
+  --parchment:     #F9F6F0;
+  --red:           #C0392B;
+  --steel:         #5E657B;
+  --border:        #D8D3CB;
+  --mid:           #6B6670;
+  --white:         #FFFFFF;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--espresso);
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY HELPERS ── */
+.font-cubano   { font-family: 'Cubano', sans-serif; }
+.font-deseo    { font-family: 'Deseo', sans-serif; }
+.font-handwritten { font-family: 'Caveat', cursive; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Cubano', sans-serif;
+  font-size: 0.75rem;
+  color: var(--steel);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--cobalt); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 65px;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 4rem 5rem 5rem;
+}
+
+.hero-tag {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: var(--cobalt);
+  margin-bottom: 1rem;
+  transform: rotate(-1deg);
+  display: inline-block;
+}
+
+.hero-name {
+  font-family: 'Cubano', sans-serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  line-height: 1.0;
+  color: var(--espresso);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-name-script {
+  font-family: 'Deseo', sans-serif;
+  font-size: clamp(3rem, 5.5vw, 5rem);
+  color: var(--cobalt);
+  display: block;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.hero-sub {
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--mid);
+  max-width: 380px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--cobalt);
+  color: var(--cream);
+  font-family: 'Cubano', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+
+.hero-cta:hover { background: var(--espresso); }
+
+.hero-right {
+  background: var(--espresso);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial(ellipse at 55% 45%, rgba(43,63,140,0.25) 0%, transparent 65%);
+}
+
+.hero-feel {
+  font-family: 'Deseo', sans-serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  color: rgba(244, 241, 236, 0.08);
+  line-height: 1.1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+  padding: 3rem;
+  transition: color 0.5s;
+}
+
+.hero-feel span {
+  display: block;
+  transition: color 0.5s;
+}
+
+.hero-feel span.active { color: rgba(244,241,236,0.85); }
+
+/* ============================================================
+   SECTION BASE
+   ============================================================ */
+section { padding: 6rem 5rem; }
+
+.section-label {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  color: var(--cobalt);
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Cubano', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  color: var(--espresso);
+  margin-bottom: 3rem;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background: var(--cobalt);
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about {
+  background: var(--espresso);
+  color: var(--cream);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+#about .section-label { color: var(--cobalt-light); }
+#about .section-title { color: var(--cream); }
+#about .divider { background: var(--cobalt-light); }
+
+.about-body {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: rgba(244,241,236,0.82);
+}
+
+.about-body p { margin-bottom: 1rem; }
+
+.about-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.about-detail-label {
+  font-family: 'Cubano', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cobalt-light);
+  margin-bottom: 0.3rem;
+}
+
+.about-detail-value {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  color: var(--cream);
+}
+
+/* ============================================================
+   CLASS PROJECTS
+   ============================================================ */
+#classwork { background: var(--cream-dark); }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  cursor: pointer;
+  background: var(--white);
+  border: 1px solid var(--border);
+  transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(43,63,140,0.12);
+}
+
+.project-thumb-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #dde1f0, var(--border));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-info { padding: 1.25rem 1.5rem 1.6rem; }
+
+.project-cat {
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: var(--cobalt);
+  margin-bottom: 0.3rem;
+}
+
+.project-name {
+  font-family: 'Cubano', sans-serif;
+  font-size: 1rem;
+  color: var(--espresso);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+.project-desc {
+  font-size: 0.82rem;
+  color: var(--mid);
+  margin-top: 0.4rem;
+  line-height: 1.55;
+}
+
+.view-pill {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--cobalt);
+  color: var(--cobalt);
+  font-family: 'Cubano', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+
+.project-card:hover .view-pill {
+  background: var(--cobalt);
+  color: var(--white);
+}
+.project-thumb-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+}
+
+/* Valley Metro */
+.project-thumb-placeholder.metro {
+  background: #d9e2ff;
+}
+
+/* Foster Care */
+.project-thumb-placeholder.foster {
+  background: #f2e6dc;
+}
+
+/* Event Identity */
+.project-thumb-placeholder.event {
+  background: #e7e3f7;
+}
+
+/* Book Jacket */
+.project-thumb-placeholder.book {
+  background: #e9e6df;
+}
+/* ============================================================
+   FILM PHOTOGRAPHY
+   ============================================================ */
+#film { background: var(--espresso); }
+#film .section-label { color: var(--cobalt-light); }
+#film .section-title { color: var(--cream); }
+#film .divider { background: var(--cobalt-light); }
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+}
+
+.photo-grid-item {
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+
+.photo-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s, opacity 0.3s;
+}
+
+.photo-grid-item:hover img {
+  transform: scale(1.04);
+  opacity: 0.8;
+}
+
+/* ============================================================
+   SPIRITUAL FORMATION
+   ============================================================ */
+#socialmedia { background: var(--parchment); }
+
+.spiritual-tabs {
+  display: flex;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.social-explanation {
+  margin-bottom: 30px;
+  font-family: 'Caveat', 'cursive';
+}
+
+.tab-btn {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: 'Cubano', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--steel);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn.active {
+  color: var(--cobalt);
+  border-bottom-color: var(--cobalt);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.spiritual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.spiritual-img {
+  width: 100%;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 12px rgba(64,55,61,0.1);
+}
+
+.spiritual-img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(43,63,140,0.18);
+}
+
+/* ============================================================
+   WEB DESIGN
+   ============================================================ */
+#webdesign { background: var(--cobalt); color: var(--cream); }
+#webdesign .section-label { color: rgba(244,241,236,0.5); }
+#webdesign .section-title { color: var(--cream); }
+#webdesign .divider { background: rgba(244,241,236,0.35); }
+
+.heritage-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.heritage-desc {
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  color: rgba(244,241,236,0.82);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.heritage-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.tag {
+  padding: 0.3rem 0.85rem;
+  border: 1px solid rgba(244,241,236,0.25);
+  font-family: 'Cubano', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244,241,236,0.6);
+}
+
+.heritage-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.heritage-imgs img { width: 100%; display: block; cursor: pointer; transition: opacity 0.25s; }
+.heritage-imgs img:hover { opacity: 0.8; }
+.heritage-imgs img:first-child { grid-column: 1 / -1; }
+.contact-section {
+  background-color: #2B3F8C;
+  color: #d9e2ff;
+}
+.contact-section .section-label {
+  color: #d9e2ff;
+}
+#contact .divider {
+  background: #d9e2ff;
+}
+.contact-section .divider {
+  color: #d9e2ff;
+}
+.contact-section p {
+  font-family: 'Caveat', 'cursive';
+}
+.contact-section h2 {
+  color: #d9e2ff;
+}
+.contact-section a {
+  color:#D8D3CB;
+  text-decoration: underline;
+  font-family: 'Caveat', 'cursive';
+}
+
+.contact-section a:hover {
+  opacity: 0.7;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--espresso);
+  color: var(--cream);
+  padding: 2.5rem 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(43,63,140,0.2);
+}
+
+.footer-logo { height: 30px; width: auto; filter: brightness(2); opacity: 0.6; }
+
+.footer-copy {
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: rgba(244,241,236,0.35);
+}
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(40,35,37,0.97);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox-inner {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-inner img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+}
+
+.lightbox-inner iframe {
+  width: 100%;
+  height: 82vh;
+  border: none;
+  background: white;
+}
+
+.lb-close {
+  position: absolute;
+  top: -2.5rem; right: 0;
+  background: none; border: none;
+  color: var(--cream);
+  cursor: pointer;
+  font-size: 1.4rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.lb-close:hover { opacity: 1; }
+
+.lb-prev, .lb-next {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(43,63,140,0.6);
+  border: none; color: var(--cream);
+  width: 42px; height: 42px;
+  cursor: pointer; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+}
+
+.lb-prev:hover, .lb-next:hover { background: var(--cobalt); }
+.lb-prev { left: -3.5rem; }
+.lb-next { right: -3.5rem; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.fade-up.visible { opacity: 1; transform: none; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1.2rem; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 4rem 2rem; }
+  .hero-right { min-height: 40vh; }
+  section { padding: 4rem 1.5rem; }
+  #about { grid-template-columns: 1fr; gap: 3rem; }
+  .photo-grid { columns: 2; }
+  .heritage-showcase { grid-template-columns: 1fr; gap: 2.5rem; }
+  footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; }
+  .lb-prev { left: 0.25rem; }
+  .lb-next { right: 0.25rem; }
+}
