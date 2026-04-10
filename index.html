@@ -258,172 +258,128 @@
        JAVASCRIPT
        ============================================================ -->
   <script>
-
-    // ── FILM GRID ──
-    const filmPhotos = [
-  'image1.jpg','image2.jpg','image3.jpg','image4.JPG',
-  'image5.JPG','image6.JPG','image7.JPG','image8.JPG',
-  'image9.JPG','image10.JPG','image11.JPG','image12.JPG'
+  // ── FILM GRID ──
+  const filmPhotos = [
+    'image1.jpg','image2.jpg','image3.jpg','image4.JPG',
+    'image5.JPG','image6.JPG','image7.JPG','image8.JPG',
+    'image9.JPG','image10.JPG','image11.JPG','image12.JPG'
   ];
 
-    const filmGrid = document.getElementById('filmGrid');
-    filmPhotos.forEach((f, i) => {
-      const div = document.createElement('div');
-      div.className = 'photo-grid-item';
-      const img = document.createElement('img');
-      img.src = f;
-      img.onclick = () => openLightboxGallery(filmPhotos, i);
-      img.loading = 'lazy';
-      img.onclick = () => openLightboxGallery(filmPhotos.map(x => `film/${x}`), i);
-      div.appendChild(img);
-      filmGrid.appendChild(div);
-    });
+  const filmGrid = document.getElementById('filmGrid');
+  filmPhotos.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'photo-grid-item';
 
-    // ── SPIRITUAL GRIDS ──
-    const spiritualData = {
-      fasting:   ['fasting-1.png','fasting-2.png','fasting-3.png','fasting-4.png'],
-      prayer:    ['prayer-2.png','prayer-3.png','prayer-4.png'],
-      listening: ['listening-5.png','listening-6.png','listening-7.png']
-    };
-
-    Object.entries(spiritualData).forEach(([key, files]) => {
-      const grid = document.getElementById(`grid-${key}`);
-      const paths = files;      paths.forEach((src, i) => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = `${key} ${i + 1}`;
-        img.className = 'spiritual-img';
-        img.loading = 'lazy';
-        img.onclick = () => openLightboxGallery(paths, i);
-        grid.appendChild(img);
-      });
-    });
-
-    // ── HERITAGE IMGS ──
-  // ── FILM GRID ──
-const filmPhotos = [
-  'image1.jpg','image2.jpg','image3.jpg','image4.JPG',
-  'image5.JPG','image6.JPG','image7.JPG','image8.JPG',
-  'image9.JPG','image10.JPG','image11.JPG','image12.JPG'
-];
-
-const filmGrid = document.getElementById('filmGrid');
-filmPhotos.forEach((f, i) => {
-  const div = document.createElement('div');
-  div.className = 'photo-grid-item';
-  const img = document.createElement('img');
-  img.src = f;
-  img.alt = `Film photo ${i + 1}`;
-  img.loading = 'lazy';
-  img.onclick = () => openLightboxGallery(filmPhotos, i);
-  div.appendChild(img);
-  filmGrid.appendChild(div);
-});
-
-// ── SPIRITUAL GRIDS ──
-const spiritualData = {
-  fasting:   ['fasting-1.png','fasting-2.png','fasting-3.png','fasting-4.png'],
-  prayer:    ['prayer-2.png','prayer-3.png','prayer-4.png'],
-  listening: ['listening-5.png','listening-6.png','listening-7.png']
-};
-
-Object.entries(spiritualData).forEach(([key, files]) => {
-  const grid = document.getElementById(`grid-${key}`);
-  const paths = files;
-  paths.forEach((src, i) => {
     const img = document.createElement('img');
-    img.src = src;
-    img.alt = `${key} ${i + 1}`;
-    img.className = 'spiritual-img';
+    img.src = f;
+    img.alt = `Film photo ${i + 1}`;
     img.loading = 'lazy';
-    img.onclick = () => openLightboxGallery(paths, i);
-    grid.appendChild(img);
+    img.onclick = () => openLightboxGallery(filmPhotos, i);
+
+    div.appendChild(img);
+    filmGrid.appendChild(div);
   });
-});
-    const heritageContainer = document.getElementById('heritageImgs');
-    heritageImgs.forEach((src, i) => {
+
+  // ── SPIRITUAL GRIDS ──
+  const spiritualData = {
+    fasting:   ['fasting-1.png','fasting-2.png','fasting-3.png','fasting-4.png'],
+    prayer:    ['prayer-2.png','prayer-3.png','prayer-4.png'],
+    listening: ['listening-5.png','listening-6.png','listening-7.png']
+  };
+
+  Object.entries(spiritualData).forEach(([key, files]) => {
+    const grid = document.getElementById(`grid-${key}`);
+    files.forEach((src, i) => {
       const img = document.createElement('img');
       img.src = src;
-      img.alt = `Heritage Hats ${i + 1}`;
+      img.alt = `${key} ${i + 1}`;
+      img.className = 'spiritual-img';
       img.loading = 'lazy';
-      img.onclick = () => openLightboxGallery(heritageImgs, i);
-      heritageContainer.appendChild(img);
+      img.onclick = () => openLightboxGallery(files, i);
+      grid.appendChild(img);
     });
+  });
 
-    // ── TABS ──
-    function switchTab(name, btn) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(`tab-${name}`).classList.add('active');
-    }
+  // ── TABS ──
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`tab-${name}`).classList.add('active');
+  }
 
-    // ── LIGHTBOX ──
-    let lbGallery = [], lbIndex = 0;
+  // ── LIGHTBOX ──
+  let lbGallery = [], lbIndex = 0;
 
-    function openLightboxGallery(gallery, index) {
-      lbGallery = gallery;
-      lbIndex = index;
-      renderLightbox();
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
+  function openLightboxGallery(gallery, index) {
+    lbGallery = gallery;
+    lbIndex = index;
+    renderLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 
-    function renderLightbox() {
-      const inner = document.getElementById('lightboxInner');
-      const existing = inner.querySelector('img:not(button img), iframe');
-      if (existing) existing.remove();
-      const img = document.createElement('img');
-      img.src = lbGallery[lbIndex];
-      inner.appendChild(img);
-      document.getElementById('lbPrev').style.display = lbGallery.length > 1 ? 'flex' : 'none';
-      document.getElementById('lbNext').style.display = lbGallery.length > 1 ? 'flex' : 'none';
-    }
+  function renderLightbox() {
+    const inner = document.getElementById('lightboxInner');
+    const existing = inner.querySelector('img:not(button img), iframe');
+    if (existing) existing.remove();
 
-    function openPDF(path) {
-      const inner = document.getElementById('lightboxInner');
-      const existing = inner.querySelector('img:not(button img), iframe');
-      if (existing) existing.remove();
-      const iframe = document.createElement('iframe');
-      iframe.src = path;
-      inner.appendChild(iframe);
-      document.getElementById('lbPrev').style.display = 'none';
-      document.getElementById('lbNext').style.display = 'none';
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      lbGallery = [];
-    }
+    const img = document.createElement('img');
+    img.src = lbGallery[lbIndex];
+    inner.appendChild(img);
 
-    function navigateLightbox(dir) {
-      lbIndex = (lbIndex + dir + lbGallery.length) % lbGallery.length;
-      renderLightbox();
-    }
+    document.getElementById('lbPrev').style.display = lbGallery.length > 1 ? 'flex' : 'none';
+    document.getElementById('lbNext').style.display = lbGallery.length > 1 ? 'flex' : 'none';
+  }
 
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-      const inner = document.getElementById('lightboxInner');
-      const el = inner.querySelector('img:not(button img), iframe');
-      if (el) el.remove();
-    }
+  function openPDF(path) {
+    const inner = document.getElementById('lightboxInner');
+    const existing = inner.querySelector('img:not(button img), iframe');
+    if (existing) existing.remove();
 
-    function closeLightboxOutside(e) {
-      if (e.target === document.getElementById('lightbox')) closeLightbox();
-    }
+    const iframe = document.createElement('iframe');
+    iframe.src = path;
+    inner.appendChild(iframe);
 
-    document.addEventListener('keydown', e => {
-      if (!document.getElementById('lightbox').classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft' && lbGallery.length > 1) navigateLightbox(-1);
-      if (e.key === 'ArrowRight' && lbGallery.length > 1) navigateLightbox(1);
+    document.getElementById('lbPrev').style.display = 'none';
+    document.getElementById('lbNext').style.display = 'none';
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbGallery = [];
+  }
+
+  function navigateLightbox(dir) {
+    lbIndex = (lbIndex + dir + lbGallery.length) % lbGallery.length;
+    renderLightbox();
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+    const inner = document.getElementById('lightboxInner');
+    const el = inner.querySelector('img:not(button img), iframe');
+    if (el) el.remove();
+  }
+
+  function closeLightboxOutside(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft' && lbGallery.length > 1) navigateLightbox(-1);
+    if (e.key === 'ArrowRight' && lbGallery.length > 1) navigateLightbox(1);
+  });
+
+  // ── SCROLL FADE ──
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
     });
+  }, { threshold: 0.1 });
 
-    // ── SCROLL FADE ──
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-
-  </script>
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
