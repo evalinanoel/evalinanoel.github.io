@@ -22,7 +22,7 @@
        ============================================================ -->
   <nav>
     <a href="#top">
-      <img class="nav-logo" src="images/portfolio-logo.png" alt="Evie Noel" />
+      <img class="nav-logo" src="portfolio-logo.png" alt="Evie Noel" />
     </a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="hero-right">
-      <img src="images/personal-image.jpg" alt="personal-image" width="600" height="auto"/>
+      <img src="personal-image.jpg" alt="personal-image" width="600" height="auto"/>
     </div>
 
   </section>
@@ -239,7 +239,7 @@
        FOOTER
        ============================================================ -->
   <footer>
-    <img class="footer-logo" src="images/portfolio-logo.png" alt="Evie Noel" />
+    <img class="footer-logo" src="portfolio-logo.png" alt="Evie Noel" />
     <p class="footer-copy">&copy; 2026 Evie Noel &nbsp;·&nbsp; Graphic Design &amp; Advertising</p>
   </footer>
 
@@ -272,10 +272,10 @@
       const div = document.createElement('div');
       div.className = 'photo-grid-item';
       const img = document.createElement('img');
-      img.src = `images/film/${f}`;
+      img.src = `film/${f}`;
       img.alt = `Film photo ${i + 1}`;
       img.loading = 'lazy';
-      img.onclick = () => openLightboxGallery(filmPhotos.map(x => `images/film/${x}`), i);
+      img.onclick = () => openLightboxGallery(filmPhotos.map(x => `film/${x}`), i);
       div.appendChild(img);
       filmGrid.appendChild(div);
     });
@@ -289,7 +289,7 @@
 
     Object.entries(spiritualData).forEach(([key, files]) => {
       const grid = document.getElementById(`grid-${key}`);
-      const paths = files.map(f => `images/spiritual/${f}`);
+      const paths = files.map(f => `spiritual/${f}`);
       paths.forEach((src, i) => {
         const img = document.createElement('img');
         img.src = src;
@@ -303,9 +303,9 @@
 
     // ── HERITAGE IMGS ──
     const heritageImgs = [
-      'images/webdesign/header-image.jpg',
-      'images/webdesign/about-section-img1.jpg',
-      'images/webdesign/service-section-img.png'
+      'webdesign/header-image.jpg',
+      'webdesign/about-section-img1.jpg',
+      'webdesign/service-section-img.png'
     ];
     const heritageContainer = document.getElementById('heritageImgs');
     heritageImgs.forEach((src, i) => {
