@@ -1,85 +1,47 @@
 # evalinanoel.com
 
-Static portfolio site — plain HTML, CSS and a few lines of JavaScript. No build step, no backend.
+Static portfolio site: plain HTML, CSS and JavaScript. No build step, no backend, no outside font services.
 
 ## Files
 
 ```
-index.html              the whole site
-assets/css/style.css    all styling (colors and spacing are variables at the top)
-assets/js/main.js       image placeholders + footer year
-images/projects/        put project images here
-favicon.svg             "EN" tab icon
-CNAME                   tells GitHub Pages to serve at evalinanoel.com
-.nojekyll               tells GitHub Pages to serve files as-is
+index.html                 home page
+about.html / work.html / contact.html   the other pages
+assets/css/style.css       all styling (colors, fonts and spacing are variables at the top)
+assets/js/main.js          signature intro, scroll effects, film lightbox
+assets/fonts/              Young Serif (headlines) and Archivo (body and labels), self-hosted
+images/film/               your photos (used in the film strips, hero and polaroid)
+images/projects/           project cover images (4:5)
+images/en-signature.svg    your "En" signature as a clean vector (cobalt)
+favicon.svg                "En" in a cobalt arch
+CNAME                      keeps the site at evalinanoel.com (do not delete)
+.nojekyll                  tells GitHub Pages to serve files as-is
 ```
 
-## Adding project images
+## The signature animation
 
-Save each image into `images/projects/` with these exact names (4:5 portrait, about 1600×2000px, JPG):
+Your hand-drawn "En" is traced to a vector and lives inline in `index.html` three times (intro, header, contact). An invisible "pen" path inside each one reveals the ink in the order you wrote it. It plays on every page load; click or press any key to skip. Anyone with "reduce motion" turned on skips it automatically.
 
-| Project | File name |
-|---|---|
-| The Alchemist | `the-alchemist.jpg` |
-| Ollie's Pizza | `ollies-pizza.jpg` |
-| Aperture Film Festival | `aperture-film-festival.jpg` |
-| Heritage Hats | `heritage-hats.jpg` |
-| Valley Metro | `valley-metro.jpg` |
-| Triple B | `triple-b.jpg` |
+## Project cards
 
-The grey placeholder disappears on its own once the file is there. Compress images first (e.g. squoosh.app, aim for under 500 KB each).
+The six Selected Work cards are solid color blocks with the project name, matching the style you chose. To change a card color, edit the `--c` value in that card's `style` attribute in `index.html`. Every card links to your Behance.
 
-## Things to edit before going live
+## Changing things
 
-1. **Email** — in `index.html`, search for `hello@evalinanoel.com` and replace both instances (the `mailto:` link and the visible text).
-2. **Triple B discipline** — search for `Discipline to come` and replace it; then remove `project__type--todo` from that line so it stops displaying in italics.
-3. **About text** — the paragraph under `<!-- 3. About -->` is a starting draft.
+- **Colors:** top of `assets/css/style.css` (`--cobalt`, `--blush`, `--sun`, etc.).
+- **Add a film photo:** drop the JPG in `images/film/` and copy one `<figure class="shot ...">` line.
+- **Project links:** every card links to your Behance. Swap a card's `href` for a project-specific URL any time.
 
-## Deploying to GitHub Pages (existing repo)
+## Deploying
 
-Your site is already on GitHub Pages with the custom domain. Replacing the site means:
+Upload the contents of this folder to the `main` branch of `evalinanoel/evalinanoel.github.io` (replace everything except keep `CNAME`). The previous site is saved on the `backup-old-site` branch.
 
-- **Will be replaced:** `index.html` and any existing file at the same path as a file here.
-- **Will be added:** `assets/`, `images/projects/`, `favicon.svg`, `.nojekyll`, `README.md`.
-- **CNAME:** this package includes one containing `evalinanoel.com`. If your repo already has a `CNAME` with that same value, it's identical — keep either. **Do not delete CNAME**, or the custom domain will disconnect.
-- **Old files** (previous CSS, images, other pages) are not touched — they stay in the repo until you delete them. They won't show on the new homepage, but old URLs to them will still work.
+## Pages
 
-### Step 1 — Back up the current site
-On GitHub, open your repo → branch dropdown (usually says `main`) → type `backup-old-site` → **Create branch**. Your current site is now saved and can be restored any time.
+Home, About, Work and Contact share the same header, footer, styles and script. The signature intro plays on the home page once per visit.
 
-### Step 2 — Upload the new files
+## Contact form
 
-**In the browser (easiest):**
-1. On the `main` branch, click **Add file → Upload files**.
-2. Unzip the package and drag in **the contents** of the folder (index.html, assets, images, CNAME, favicon.svg, README.md) — not the folder itself.
-3. `.nojekyll` is a hidden file; if your system hides it, create it on GitHub instead: **Add file → Create new file**, name it `.nojekyll`, leave it empty, commit.
-4. Commit message: `New portfolio site` → **Commit changes**.
-
-**With git:**
-```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
-# copy everything from this package into the repo folder (overwrite index.html)
-git add -A
-git commit -m "New portfolio site"
-git push
-```
-
-### Step 3 — Check Pages settings
-Repo → **Settings → Pages**:
-- Source: **Deploy from a branch**, branch `main`, folder `/ (root)`.
-- Custom domain: `evalinanoel.com` (should already be filled in).
-- **Enforce HTTPS**: checked.
-
-Wait 1–2 minutes, then open https://evalinanoel.com (hard-refresh with Cmd/Ctrl + Shift + R).
-
-### DNS (only if the domain isn't already working)
-Your Namecheap DNS should already be set. For reference, GitHub Pages needs:
-- `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-- `CNAME` record for `www` → `<your-username>.github.io`
-
-### Restoring the old site
-Switch Pages to the `backup-old-site` branch in Settings → Pages, or copy its files back to `main`.
-
-## Previewing locally
-Open `index.html` directly in a browser, or for an exact preview run `python3 -m http.server` in this folder and visit http://localhost:8000.
+The form on contact.html sends messages to eviegnoel@gmail.com through FormSubmit (formsubmit.co), a free service that needs no account.
+**The very first message sends you a one-time "Activate form" email. Click the button in it** and every message after that lands in your inbox.
+To change the address, edit the `action` on the `<form>` in contact.html.
