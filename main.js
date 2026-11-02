@@ -60,12 +60,17 @@
   }
 
   /* ---------- Header turns solid once you scroll past the hero ---------- */
+  var headTop = document.querySelector('.hero, .page-head, .about--page, .contact--page');
+  var headLimit = 80, headSolid = null, headTick = false;
+  function measureHead() { headLimit = headTop ? headTop.offsetHeight - 80 : 80; }
   function onScroll() {
-    var top = document.querySelector('.hero, .page-head, .about--page, .contact--page');
-    var limit = top ? top.offsetHeight - 80 : 80;
-    header.classList.toggle('is-solid', window.scrollY > limit);
+    headTick = false;
+    var s = window.scrollY > headLimit;
+    if (s !== headSolid) { headSolid = s; header.classList.toggle('is-solid', s); }
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
+  measureHead();
+  window.addEventListener('resize', function () { measureHead(); onScroll(); });
+  window.addEventListener('scroll', function () { if (!headTick) { headTick = true; requestAnimationFrame(onScroll); } }, { passive: true });
   onScroll();
 
   /* ---------- Scroll-linked drift: stars and gallery columns ---------- */
@@ -170,8 +175,17 @@
     var running = function () { return document.getAnimations().filter(function (a) { var t = a.effect && a.effect.target; return t && t.matches && t.matches('.marquee__track, .filmstrip__track'); }); };
     var anims = [];
     setTimeout(function () { anims = running(); }, 300);
-    window.addEventListener('scroll', function () { var y = window.scrollY; boost = Math.min(8, boost + Math.abs(y - lastY) / 40); lastY = y; }, { passive: true });
-    (function tick() { boost *= 0.92; anims.forEach(function (a) { a.playbackRate = 1 + boost; }); requestAnimationFrame(tick); })();
+    var spinning = false;
+    function tick() {
+      boost *= 0.92;
+      if (boost < 0.02) { boost = 0; spinning = false; }
+      anims.forEach(function (a) { a.playbackRate = 1 + boost; });
+      if (spinning) requestAnimationFrame(tick);
+    }
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY; boost = Math.min(8, boost + Math.abs(y - lastY) / 40); lastY = y;
+      if (!spinning) { spinning = true; requestAnimationFrame(tick); }
+    }, { passive: true });
   }
 
   /* ---------- Header signature rewrites itself on hover ---------- */
@@ -188,10 +202,15 @@
   var cursor = document.querySelector('.cursor');
   if (cursor && !reduce && window.matchMedia('(pointer: fine)').matches) {
     var cx = 0, cy = 0, tx = 0, ty = 0;
-    window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; cursor.classList.add('is-on'); });
+    var moving = false;
+    function loop() {
+      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+      cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+      if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.3) requestAnimationFrame(loop); else moving = false;
+    }
+    window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; cursor.classList.add('is-on'); if (!moving) { moving = true; requestAnimationFrame(loop); } }, { passive: true });
     document.addEventListener('mouseleave', function () { cursor.classList.remove('is-on'); });
     document.addEventListener('mouseover', function (e) { cursor.classList.toggle('is-big', !!e.target.closest('a, button, .shot, .project, .print')); });
-    (function loop() { cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18; cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px)'; requestAnimationFrame(loop); })();
   }
 
   /* ---------- Contact form: send without leaving the page ---------- */
