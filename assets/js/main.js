@@ -199,6 +199,24 @@
   if (form) {
     var status = form.querySelector('.contact-form__status');
     var send = form.querySelector('.contact-form__send');
+    var sent = document.querySelector('.sent');
+    var section = form.closest('.contact');
+    function showSent(fromRedirect) {
+      if (!sent) { form.classList.add('is-sent'); status.textContent = 'Thank you! Your message is on its way.'; return; }
+      sent.hidden = false;
+      section.classList.add('is-sent');
+      section.scrollIntoView({ block: 'start' });
+      var sig = sent.querySelector('.sig');
+      if (sig && !reduce) { sig.classList.remove('is-writing'); sig.classList.add('sig--write'); void sig.getBoundingClientRect(); requestAnimationFrame(function () { sig.classList.add('is-writing'); }); }
+      if (fromRedirect && history.replaceState) history.replaceState(null, '', location.pathname);
+      var h = sent.querySelector('.sent__title'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    }
+    var again = document.querySelector('.sent__again');
+    if (again) again.addEventListener('click', function () {
+      sent.hidden = true; section.classList.remove('is-sent');
+      form.reset(); form.classList.remove('is-sent'); send.disabled = false; status.textContent = '';
+      form.querySelector('input[name=name]').focus();
+    });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var bad = false;
@@ -209,16 +227,21 @@
       if (bad) { status.textContent = 'Please fill in your name, a valid email and a message.'; return; }
       if (form.querySelector('[name=_honey]').value) return;
       send.disabled = true; status.textContent = 'Sending...';
+      // If the quick (AJAX) send fails for any reason, fall back to a normal form post,
+      // which always reaches FormSubmit and then returns here with ?sent=1.
+      var fallback = function () { status.textContent = 'Sending...'; HTMLFormElement.prototype.submit.call(form); };
       var data = {}; new FormData(form).forEach(function (v, k) { data[k] = v; });
       fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data)
-      }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
-        .then(function () { form.classList.add('is-sent'); status.textContent = 'Thank you! Your message is on its way, and I\u2019ll get back to you soon.'; })
-        .catch(function () {
-          send.disabled = false;
-          status.innerHTML = 'That didn\u2019t send. Please email me at <a href="mailto:eviegnoel@gmail.com" style="text-decoration:underline">eviegnoel@gmail.com</a>.';
-        });
+      }).then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); })
+        .then(function (res) {
+          if (res && (res.success === true || res.success === 'true')) { showSent(); }
+          else { fallback(); }
+        })
+        .catch(fallback);
     });
+    // Back from a normal post: show the thank-you
+    if (/[?&]sent=1/.test(location.search)) showSent(true);
   }
 
   /* ---------- Footer year ---------- */
